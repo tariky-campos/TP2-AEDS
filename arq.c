@@ -163,9 +163,9 @@ int main()
 
         fclose(arquivo);
 
-        clock_t inicio = clock();
-        resolverSondas(itens, N_rochas, capacidade, sondas);
-        clock_t fim = clock();
+        clock_t inicio = clock(); // Início do tempo
+        resolverSondas(itens, N_rochas, capacidade, sondas); // Função principal
+        clock_t fim = clock(); // Fim do tempo
 
         double tempoGasto = (double)(fim - inicio) / CLOCKS_PER_SEC;
         printf("Tempo Gasto: %.2f segundos\n", tempoGasto);
