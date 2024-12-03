@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 #define MAX_ITEMS 20
 #define MAX_WEIGHT 40
@@ -45,13 +46,18 @@ int knapsack(Item items[], int n, int capacity, int selecionados[], int usados[]
     int totalValor = dp[n][capacity];
     int idx = 0;
 
+    int pesoAcumulado = 0; // Controle do peso acumulado
     for (int i = n; i > 0; i--)
     {
         if (keep[i][w])
         {
+            if (pesoAcumulado + items[i - 1].peso > MAX_WEIGHT) // Verifica se ultrapassa o peso
+                continue;
+
             selecionados[idx++] = i - 1;
             usados[i - 1] = 1;
             w -= items[i - 1].peso;
+            pesoAcumulado += items[i - 1].peso; // Atualiza o peso acumulado
         }
     }
     selecionados[idx] = -1;
@@ -111,11 +117,13 @@ void resolverSondas(Item items[], int n, int capacidade, int sondas)
 
 int main()
 {
+    struct timeval inicio, fim;
+    gettimeofday(&inicio, NULL);
     int N_rochas;
     int comando;
     int capacidade = MAX_WEIGHT;
     int sondas = 3;
-    
+
     while (comando != 1 && comando != 2)
     {
         printf("1-Arquivo de teste  2-Terminal\n");
@@ -163,12 +171,11 @@ int main()
 
         fclose(arquivo);
 
-        clock_t inicio = clock(); // Início do tempo
-        resolverSondas(itens, N_rochas, capacidade, sondas); // Função principal
-        clock_t fim = clock(); // Fim do tempo
+        resolverSondas(itens, N_rochas, capacidade, sondas);
 
-        double tempoGasto = (double)(fim - inicio) / CLOCKS_PER_SEC;
-        printf("Tempo Gasto: %.2f segundos\n", tempoGasto);
+        gettimeofday(&fim, NULL);
+        double tempoReal = (fim.tv_sec - inicio.tv_sec) + (fim.tv_usec - inicio.tv_usec) / 1000000.0;
+        printf("Tempo Real Gasto: %.2f segundos\n", tempoReal);
 
         free(itens);
         return 0;
@@ -182,7 +189,6 @@ int main()
             return 1;
         }
 
-        // Alocação dinâmica para itens
         Item *itens = (Item *)malloc(N_rochas * sizeof(Item));
         if (itens == NULL)
         {
@@ -190,7 +196,6 @@ int main()
             return 1;
         }
 
-        // Entrada de peso e valor de cada rocha
         for (int i = 0; i < N_rochas; i++)
         {
             printf("Insira o peso e valor da rocha %d (separados por espaco): ", i + 1);
@@ -202,19 +207,13 @@ int main()
             }
         }
 
-        int capacidade = MAX_WEIGHT;
-        int sondas = 3;
-
-        clock_t inicio = clock();
         resolverSondas(itens, N_rochas, capacidade, sondas);
-        clock_t fim = clock();
 
-        double tempoGasto = (double)(fim - inicio) / CLOCKS_PER_SEC;
-        printf("Tempo Gasto: %.2f segundos\n", tempoGasto);
+        gettimeofday(&fim, NULL);
+        double tempoReal = (fim.tv_sec - inicio.tv_sec) + (fim.tv_usec - inicio.tv_usec) / 1000000.0;
+        printf("Tempo Real Gasto: %.2f segundos\n", tempoReal);
 
-        // Liberação de memória
         free(itens);
-
         return 0;
     }
 }
