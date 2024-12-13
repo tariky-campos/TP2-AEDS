@@ -28,7 +28,7 @@ void Imprime_S(L_Sondas *L_Sondas) {
     Apontador_S pAux = L_Sondas->pPrimeiro->pProx; // Começa após a célula cabeça
     while (pAux != NULL) {
         printf("ID: %d\n", pAux->sonda.idSonda);
-        printf("Capacidade: %.2f\n", pAux->sonda.capacidade);
+        printf("Capacidade: %d\n", pAux->sonda.capacidade);
         pAux = pAux->pProx;
     }
 }
