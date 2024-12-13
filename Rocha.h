@@ -1,21 +1,17 @@
 #ifndef ROCHA_H
-#define ROCHAL_H
+#define ROCHA_H
 
-typedef struct
-{
-    int id;
-    int peso;
-    int valor;
-} rocha;
 
-void InicializaRocha(rocha *r,int id, int peso, int valor);
-int getid(rocha *r);
-int getpeso(rocha *r);
-int getvalor(rocha *r);
+typedef struct{
+    float valorRocha;
+    float pesoRocha;
+    int usada;
+} Rocha;
 
-void setid(rocha *r, int id);
-void setpeso(rocha *r, int peso);
-void setvalor(rocha *r, int valor);
+void set_valor(Rocha* rocha, float valorRocha);
+void set_pesoRocha(Rocha* rocha, float pesoRocha);
+void set_usada(Rocha* rocha, int usada);
+void iniciaRocha(Rocha* rocha, float valorRocha, float pesoRocha, int usada);
+void imprimeRocha(Rocha rocha);
 
 #endif
-

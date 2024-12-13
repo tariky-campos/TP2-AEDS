@@ -1,24 +1,20 @@
 #ifndef COMPARTIMENTO_H
 #define COMPARTIMENTO_H
+
 #include "Rocha.h"
+#define MAX 100
 
-typedef struct CelulaRocha *Apontador_R;
-typedef struct CelulaRocha
-{
-    rocha r;
-    struct CelulaRocha *pProx;
-} Celula_R;
-
-typedef struct
-{
-    Apontador_R pPrimeiro;
-    Apontador_R pUltimo;
+typedef struct {
+    Rocha vetor[MAX];
+    int tamanho;
 } L_Compart;
 
-void FLVazia_R(L_Compart *pLista);
-int LEhVazia_R(L_Compart *pLista);
-void LImprime_R(L_Compart *pLista);
-int LInsere_R(L_Compart *pLista, rocha *pRocha);
-
+void ini_L_C(L_Compart* lista);
+void insere_ROCHA(L_Compart* lista, float valor, float peso, int usada);
+void remove_ROCHA(L_Compart* lista, int indice);
+void ImprimeCompartimento(L_Compart* lista);
+void avaliaCombinacao(L_Compart* lista, int combinacao, float* valorTotal, float* pesoTotal);
+void melhor_rocha(L_Compart* lista);
+void marcaRochasUsadas(L_Compart* lista, int combinacao);
 
 #endif
