@@ -1,25 +1,15 @@
-# Variáveis
-CC = gcc                   # Compilador
-CFLAGS = -Wall -Wextra     # Flags do compilador
-SRCS = $(wildcard *.c)     # Todos os arquivos .c no diretório atual
-OBJS = $(SRCS:.c=.o)       # Converte .c para .o
-EXEC = main                # Nome do executável final
+CC=gcc
+CFLAGS=-Wall -Wextra -g
+SRC=$(wildcard *.c)
+OBJ=$(SRC:.c=.o)
+TARGET=app.exe
 
-# Regra principal (executar tudo)
-all: $(EXEC)
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
 
-# Regra para compilar o executável
-$(EXEC): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
-
-# Regra para compilar arquivos .c em .o
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Limpeza dos arquivos gerados
 clean:
-	rm -f $(OBJS) $(EXEC)
+	del /Q $(OBJ) $(TARGET)
 
-# Limpeza total
-clean_all: clean
-	rm -f *~

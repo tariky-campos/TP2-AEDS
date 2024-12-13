@@ -3,15 +3,19 @@
 
 typedef struct
 {
+    int id;
     int peso;
     int valor;
-} ROcha;
+} rocha;
 
-void InicializaRocha(ROcha *r, int peso, int valor);
-int getpeso(ROcha *r);
-int getvalor(ROcha *r);
+void InicializaRocha(rocha *r,int id, int peso, int valor);
+int getid(rocha *r);
+int getpeso(rocha *r);
+int getvalor(rocha *r);
 
-void setpeso(ROcha *r, int peso);
-void setvalor(ROcha *r, int valor);
+void setid(rocha *r, int id);
+void setpeso(rocha *r, int peso);
+void setvalor(rocha *r, int valor);
 
 #endif
+

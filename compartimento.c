@@ -1,41 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "compartimento.h"
+#include "Compartimento.h"
 
-
-
-void FLvazia(L_Compart* comp){
-    comp->primeiro = 0;
-    comp->ultimo = comp->primeiro;
-};
-
-int LEhVazia(L_Compart* comp){
-    return(comp->primeiro == comp->ultimo);
-};
-
-int LInsere(L_Compart* comp, ROcha x){
-    if(comp->ultimo == 1000)
-        return 0;
-    comp->rocha[comp->ultimo++] = x;
-    return 1;
-};
-int Lretira(L_Compart* comp, int p, ROcha *px){
-    int cont;
-    if(LEhVazia(comp) || p >= comp->ultimo || p < 0)
-        return 0;
-    
-    *px = comp->rocha[p];
-    for(cont = p+1; cont <= comp->ultimo; cont++){
-        comp->rocha[cont - 1] = comp->rocha[cont];
-    }
-    return 1;
-};
-
-
-void LImprime(L_Compart* pLista)
+void FLVazia_R(L_Compart *pLista)
 {
- int i;
- for (i = pLista->primeiro; i < pLista->ultimo; i++)
- printf(" %d %d\n", pLista->rocha[i].peso, pLista->rocha[i].valor);
-} 
+    pLista->pPrimeiro = (Apontador_R)malloc(sizeof(Celula_R));
+    pLista->pUltimo = pLista->pPrimeiro;
+    pLista->pPrimeiro->pProx = NULL;
+}
+
+int LEhVazia_R(L_Compart *pLista)
+{
+    return (pLista->pPrimeiro == pLista->pUltimo);
+}
+
+int LInsere_R(L_Compart *pLista, rocha *pRocha)
+{
+    pLista->pUltimo->pProx = (Apontador_R)malloc(sizeof(Celula_R));
+    pLista->pUltimo = pLista->pUltimo->pProx;
+    pLista->pUltimo->r = *pRocha;
+    pLista->pUltimo->pProx = NULL;
+    return 1;
+}
+
+void LImprime_R(L_Compart *pLista)
+{
+
+    Apontador_R pAux= NULL;
+    pAux = pLista->pPrimeiro->pProx;
+    while (pAux != NULL)
+    {
+        printf("Peso: %d\n", pAux->r.peso);
+        printf("valor: %d\n", pAux->r.valor);
+        pAux = pAux->pProx;
+    }
+}
