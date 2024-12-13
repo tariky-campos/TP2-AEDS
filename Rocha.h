@@ -5,14 +5,13 @@ typedef struct
 {
     int peso;
     int valor;
-} rocha;
+} ROcha;
 
-void InicializaRocha(rocha *r, int peso, int valor);
-int getpeso(rocha *r);
-int getvalor(rocha *r);
+void InicializaRocha(ROcha *r, int peso, int valor);
+int getpeso(ROcha *r);
+int getvalor(ROcha *r);
 
-void setpeso(rocha *r, int peso);
-void setvalor(rocha *r, int valor);
+void setpeso(ROcha *r, int peso);
+void setvalor(ROcha *r, int valor);
 
 #endif
-

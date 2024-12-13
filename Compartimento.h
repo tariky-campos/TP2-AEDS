@@ -1,24 +1,20 @@
-#ifndef COMPARTIMENTO_H
-#define COMPARTIMENTO_H
-#include "Rocha.h"
+#ifndef Compartimento_h
+#define Compartimento_h
+#include <stdio.h>
+#include "rocha.h"
 
-typedef struct CelulaRocha *Apontador_R;
-typedef struct CelulaRocha
-{
-    rocha r;
-    struct CelulaRocha *pProx;
-} Celula_R;
+typedef struct {
+    ROcha rocha[1000];
+    int primeiro;
+    int ultimo;
+}L_Compart;
 
-typedef struct
-{
-    Apontador_R pPrimeiro;
-    Apontador_R pUltimo;
-} L_Compart;
 
-void FLVazia_R(L_Compart *pLista);
-int LEhVazia_R(L_Compart *pLista);
-void LImprime_R(L_Compart *pLista);
-int LInsere_R(L_Compart *pLista, rocha *pRocha);
 
+void FLvazia(L_Compart* lista_s);
+int LEhVazia(L_Compart* lista_s);
+int LInsere(L_Compart* lista_s, ROcha x);
+int Lretira(L_Compart* lista_s, int p, ROcha *px);
+void LImprime(L_Compart* pLista);
 
 #endif

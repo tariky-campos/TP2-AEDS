@@ -1,20 +1,21 @@
-#ifndef DADOSSONDA_H
-#define DADOSSONDA_H
-#include "Compartimento.h"
+#ifndef SONDA_H
+#define SONDA_H
 
+#include "compartimento.h"
 
-typedef struct
-{
-    int idSonda;    
-    L_Compart Compar_Rocha;
-    float capacidade;    
+#define MAXCAP 40
+
+typedef struct {
+    int idSonda;
+    int capacidade;
+    int pesoAtual;
+    int valorAtual;
+    L_Compart CompartimentoR;
 } DadosSonda;
 
-void InicializaSonda(DadosSonda *sonda, int idSonda, float capacidade);
+void InicializaSonda(DadosSonda *sonda, int idSonda);
+void ImprimeSonda(DadosSonda *sonda);
+void LimpaSonda(DadosSonda *sonda);
+int AdicionaRocha(DadosSonda *sonda, ROcha novaRocha);
 
-int getId(DadosSonda *sonda);
-float getCapacidade(DadosSonda *sonda);
-
-void setId(DadosSonda *sonda, int id);
-void setCapacidade(DadosSonda *sonda, float capacidade);
 #endif

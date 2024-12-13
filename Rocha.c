@@ -1,22 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include  "Rocha.h"
+#include  "rocha.h"
 
-void InicializaRocha(rocha *r, int peso, int valor){
+void InicializaRocha(ROcha *r, int peso, int valor){
     setpeso(r, peso);
     setvalor(r, valor);
 }
-void setpeso(rocha *r, int peso){
+void setpeso(ROcha *r, int peso){
     r->peso = peso;
 }
-void setvalor(rocha *r, int valor){
+void setvalor(ROcha *r, int valor){
     r->valor = valor;
 }
 
-int getpeso(rocha *r){
+int getpeso(ROcha *r){
     return r->peso;
 }
-int getvalor(rocha *r){
+int getvalor(ROcha *r){
     return r->valor;
 }
