@@ -1,7 +1,7 @@
 #ifndef SONDAESPACIAL_H
 #define SONDAESPACIAL_H
 #include "Compartimento.h"
-extern int MVG;
+extern int mMVG;
 
 typedef struct {
     int identificadorSonda;
@@ -10,7 +10,7 @@ typedef struct {
     float pesoAtual;
 } DadosSonda;
 
-DadosSonda inicializaSonda(DadosSonda* sonda); 
+DadosSonda inicil_sonda(DadosSonda* sonda); 
 void imprimeSonda(DadosSonda sonda);
 void setIdentificadorSonda(DadosSonda* sonda, int identificador);
 void set_CapacidadeSonda(DadosSonda* sonda, float capacidadeSonda);

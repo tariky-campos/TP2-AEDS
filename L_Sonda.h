@@ -1,22 +1,22 @@
 #ifndef LISTASONDAS_H
 #define LISTASONDAS_H
 
-#include "SondaEspacial.h"
+#include "Sonda.h"
 
 typedef DadosSonda item;
-typedef struct Celula* Apontador_S;
+typedef struct Celula* apontador;
 
 typedef struct Celula {
-    item chave;
-    struct Celula* pProxx;
-}Celula_S;
+    item chaveSonda;
+    struct Celula* pProxSonda;
+}celulaSonda;
 
 typedef struct{
-    Celula_S itemSonda;
-    Apontador_S pprimeira, pultima;
+    celulaSonda itemSonda;
+    apontador pprimeiro, pultimo;
 }L_Sondas;
 
-void iniciaListaSonda(L_Sondas* pLista);
+void ini_LISTASONDA(L_Sondas* pLista);
 void insereSonda(L_Sondas* plista, DadosSonda xSonda);
 void retiraSonda(L_Sondas* plista);
 void ImprimeListaSondas(L_Sondas* plista);

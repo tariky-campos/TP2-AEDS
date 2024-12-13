@@ -1,94 +1,112 @@
-#include "Compartimento.h"
+#include "Compartimento.h" // Inclui o cabeçalho que define o tipo L_Compart e Rocha
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-void ini_L_C(L_Compart* lista) {
+// Inicializa uma lista de rochas, configurando o tamanho inicial como 0
+void ini_LISTAC(L_Compart* lista) {
     lista->tamanho = 0;
 }
 
-void insere_ROCHA(L_Compart* lista, float valor, float peso, int usada) {
-    if (lista->tamanho >= MAX) {
+// Insere uma nova rocha na lista
+void insere_Rocha(L_Compart* lista, float valor, float peso, int usada) {
+    if (lista->tamanho >= MAX) { // Verifica se a lista já atingiu o tamanho máximo
         printf("Tamanho Max da lista\n");
         return;
     }
+    // Cria uma nova rocha com os valores fornecidos
     Rocha novaRocha = {valor, peso, usada};
-    lista->vetor[lista->tamanho] = novaRocha;
-    lista->tamanho++;
+    lista->vetor[lista->tamanho] = novaRocha; // Adiciona a nova rocha na lista
+    lista->tamanho++; // Incrementa o tamanho da lista
     return;
 }
 
-void remove_ROCHA(L_Compart* lista, int indice) {
-    if (indice < 0 || indice >= lista->tamanho) {
+// Remove uma rocha da lista, deslocando os elementos subsequentes
+void remove_Rocha(L_Compart* lista, int indice) {
+    if (indice < 0 || indice >= lista->tamanho) { // Valida o índice
         printf("Sem rocha\n");
         return;
     }
+    // Move os elementos seguintes para "cobrir" o espaço do elemento removido
     for (int i = indice; i < lista->tamanho - 1; i++) {
         lista->vetor[i] = lista->vetor[i + 1];
     }
-    lista->tamanho--;
+    lista->tamanho--; // Decrementa o tamanho da lista
     return;
 }
 
+// Imprime as rochas presentes na lista
 void ImprimeCompartimento(L_Compart* lista) {
-    if (lista->tamanho == 0) {
+    if (lista->tamanho == 0) { // Verifica se a lista está vazia
         printf("Vazia\n");
         return;
     }
     printf("Lista de Rochas:\n");
+    // Percorre a lista e imprime os dados de cada rocha
     for (int i = 0; i < lista->tamanho; i++) {
-        printf("Rocha Indice:%d  Valor: %.2f  Peso: %.2f usada: %d\n", i, lista->vetor[i].valorRocha, lista->vetor[i].pesoRocha, lista->vetor[i].usada);
+        printf("Rocha Indice:%d  Valor: %.0f  Peso: %.0f usada: %d\n", 
+               i, 
+               lista->vetor[i].valorRocha, 
+               lista->vetor[i].pesoRocha, 
+               lista->vetor[i].usada);
     }
 }
 
-void avaliaCombinacao(L_Compart* lista, int combinacao, float* valorTotal, float* pesoTotal) { // aqui na forca bruta ele combina tudo com tudo olhando peso e valor
+// Avalia uma combinação específica de rochas, calculando valor e peso totais
+void avaliaCombinacao(L_Compart* lista, int combinacao, float* valorTotal, float* pesoTotal) {
     *valorTotal = 0;
     *pesoTotal = 0;
+    // Percorre todas as rochas da lista
     for (int i = 0; i < lista->tamanho; i++) {
-        if (combinacao % (int)pow(2, i + 1) >= (int)pow(2, i) && lista->vetor[i].usada == 0) { // exeto a usada
-            *valorTotal += lista->vetor[i].valorRocha;
-            *pesoTotal += lista->vetor[i].pesoRocha;
-        
+        // Verifica se a rocha faz parte da combinação e não foi usada
+        if (combinacao % (int)pow(2, i + 1) >= (int)pow(2, i) && lista->vetor[i].usada == 0) {
+            *valorTotal += lista->vetor[i].valorRocha; // Soma o valor da rocha
+            *pesoTotal += lista->vetor[i].pesoRocha;  // Soma o peso da rocha
         }
     }
 }
 
-
+// Determina a melhor combinação de rochas com base no valor total e peso máximo
 void melhor_rocha(L_Compart* lista) {
-    int melhorCombinacao = 0;
-    float melhorValor = 0;
-    float melhorPeso = 0;
+    int melhorCombinacao = 0; // Armazena a melhor combinação encontrada
+    float melhorValor = 0;   // Valor máximo da combinação
+    float melhorPeso = 0;    // Peso correspondente à melhor combinação
 
-    int totalCombinacoes = (int)pow(2, lista->tamanho); // 2^n tamanho de comparacoes necessarias 
+    int totalCombinacoes = (int)pow(2, lista->tamanho); // Número total de combinações possíveis (2^n)
 
     for (int combinacao = 0; combinacao < totalCombinacoes; combinacao++) {
         float valorAtual, pesoAtual;
-        avaliaCombinacao(lista, combinacao, &valorAtual, &pesoAtual); // algoritmo que gera as combinacoes
+        // Avalia a combinação atual
+        avaliaCombinacao(lista, combinacao, &valorAtual, &pesoAtual);
 
-        if (pesoAtual <= 40 && valorAtual > melhorValor) { // verificacao para escolher o melhor
+        // Verifica se a combinação atende aos critérios: peso <= 40 e valor é o maior encontrado
+        if (pesoAtual <= 40 && valorAtual > melhorValor) {
             melhorValor = valorAtual;
             melhorCombinacao = combinacao;
             melhorPeso = pesoAtual;
-            
         }
     }
 
-    marcaRochasUsadas(lista, melhorCombinacao); // essa funcao atribui 1 ao campo "usado" da rocha para nao escolher a mesma rocha
+    // Marca as rochas da melhor combinação como usadas
+    marcaRochasUsadas(lista, melhorCombinacao);
 
-    printf("Valor: %.0f, Peso: %0.f", melhorValor, melhorPeso);
-    printf(" Solucao:");
-    printf("[");
+    // Imprime o resultado final
+    printf("Valor: %.0f, Peso: %.0f", melhorValor, melhorPeso);
+    printf(" Solucao: ");
+    printf("(");
+    // Identifica as rochas que fazem parte da solução
     for (int i = 0; i < lista->tamanho; i++) {
-        if ((melhorCombinacao / (int)pow(2, i)) % 2 == 1) { // verificacao usando bit para ver se a combinacao faz parte da solucao
+        if ((melhorCombinacao / (int)pow(2, i)) % 2 == 1) { 
             printf(" %d ", i);
         }
     }
-    printf("]");
+    printf(")");
 }
 
+// Marca as rochas da combinação como usadas (campo 'usada' = 1)
 void marcaRochasUsadas(L_Compart* lista, int combinacao) {
     for (int i = 0; i < lista->tamanho; i++) {
-        // poe 1 no campo usado so se a rocha for usada na solucao
+        // Se a rocha faz parte da combinação, marca como usada
         if (combinacao % (int)pow(2, i + 1) >= (int)pow(2, i)) {
             lista->vetor[i].usada = 1;
         }

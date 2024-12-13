@@ -23,9 +23,5 @@ void iniciaRocha(Rocha* rocha, float valorRocha, float pesoRocha, int usada){
 void imprimeRocha(Rocha rocha){
     printf("Valor Rocha rocha: %f\n", rocha.valorRocha);
     printf("Peso rocha: %f\n", rocha.pesoRocha);
-    if (rocha.usada == 1) {
-        printf("Usada\n");
-    } else {
-        printf("Disponivel\n");
-    }
+
 }

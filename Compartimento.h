@@ -9,9 +9,9 @@ typedef struct {
     int tamanho;
 } L_Compart;
 
-void ini_L_C(L_Compart* lista);
-void insere_ROCHA(L_Compart* lista, float valor, float peso, int usada);
-void remove_ROCHA(L_Compart* lista, int indice);
+void ini_LISTAC(L_Compart* lista);
+void insere_Rocha(L_Compart* lista, float valor, float peso, int usada);
+void remove_Rocha(L_Compart* lista, int indice);
 void ImprimeCompartimento(L_Compart* lista);
 void avaliaCombinacao(L_Compart* lista, int combinacao, float* valorTotal, float* pesoTotal);
 void melhor_rocha(L_Compart* lista);

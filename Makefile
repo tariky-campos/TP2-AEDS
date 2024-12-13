@@ -1,14 +1,22 @@
-CC=gcc
-CFLAGS=-Wall -Wextra -g
-SRC=$(wildcard *.c)
-OBJ=$(SRC:.c=.o)
-TARGET=app.exe
+CC = gcc
+CFLAGS = -Wall -g
+
+TARGET = app
+SRC = $(shell find . -name "*.c")
+OBJ = $(SRC:.c=.o)
+
+all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
+	$(CC) $(OBJ) -o $(TARGET) -lm
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	del /Q $(OBJ) $(TARGET)
+	rm -f $(OBJ) $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
+
+.PHONY: all clean run

@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "SondaEspacial.h"
+#include "Sonda.h"
 
-DadosSonda inicializaSonda(DadosSonda* sonda){
+DadosSonda inicil_sonda(DadosSonda* sonda){
     
-    setIdentificadorSonda(sonda, MVG);
+    setIdentificadorSonda(sonda, mMVG);
     sonda->capacidadeSonda = 40;
     sonda->valorSonda = 0;
     sonda->pesoAtual = 0;
-    MVG++;
+    mMVG++;
     return *sonda;
 }
 void setIdentificadorSonda(DadosSonda* sonda, int identificador){
