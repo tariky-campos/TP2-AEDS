@@ -23,7 +23,7 @@ void gerar_combinacoes(int index, int n, rocha *rochas, int *combinacao_atual, i
 int encontrar_melhor_combinacao(int **combinacoes, int total_combinacoes, int n, rocha *rochas,
 int pesomax, int *melhor_combinacao_indices, int *usadas);
 void marcar_rochas_usadas(int n, int *melhor_combinacao_indices, int *usadas);
-int adicionar_rocha_na_sonda(DadosSonda *sondai, rocha *r, int indice_rocha);
+int adicionar_rocha_na_sonda(DadosSonda *sondai, rocha *r);
 void colocar_na_sonda(L_Sondas *ListaSonda, int **combinacoes, int max_combinacoes, int N_rochas,
 rocha *rochas, int pesomax, int *melhor_combinacao_indices, int *usadas);
 #endif
